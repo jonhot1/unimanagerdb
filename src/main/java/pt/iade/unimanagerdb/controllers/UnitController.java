@@ -45,4 +45,9 @@ public class UnitController {
         unitRepository.deleteById(id); 
         return new Response("Deleted unit with id " + id, null); 
     }
+    @GetMapping(path = "/{text:[^0-9]+}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Unit> getUnit(@PathVariable(value = "text") String text) {
+        logger.info("Unit with name like" +text);
+        return unitRepository.findByNameContaining(text);
+    }
 }
